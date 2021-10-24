@@ -29,7 +29,7 @@ class TestCustomClass(unittest.TestCase):
         """checks inaccessibility of class attributes by names 'default_name'"""
         self.assertRaises(AttributeError, lambda: self.inst.val)
 
-    def test_valid_class_initialized_attribute(self):
+    def test_valid_initialized_attribute(self):
         """checks availability of class attributes by names 'prefix+default_name'"""
         self.assertEqual(self.inst.custom_val, 20)
 

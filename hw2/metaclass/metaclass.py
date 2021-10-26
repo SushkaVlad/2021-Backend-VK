@@ -9,14 +9,14 @@ class CustomMeta(type):
         """rules of creation instance of class CustomMeta"""
         custom_attrs = {}
         for key, val in attrs.items():
-            custom_attrs[CustomMeta.prefix + key if not key.startswith('__') else key] = val
+            custom_attrs[CustomMeta.prefix + key if not (key.startswith('__') and key.endswith('__')) else key] = val
 
         def custom_setattr(self, key, value):
-            self.__dict__[CustomMeta.prefix + key if not key.startswith('__') else key] = value
+            self.__dict__[CustomMeta.prefix + key if not (key.startswith('__') and key.endswith('__')) else key] = value
 
         custom_attrs['__setattr__'] = custom_setattr
 
-        return super(CustomMeta, cls).__new__(cls, name, bases, custom_attrs)
+        return super().__new__(cls, name, bases, custom_attrs)
 
 
 class CustomClass(metaclass=CustomMeta):
@@ -26,6 +26,5 @@ class CustomClass(metaclass=CustomMeta):
     def __init__(self, val=99):
         self.val = val
 
-    @staticmethod
-    def line():
+    def line(self):
         return 100

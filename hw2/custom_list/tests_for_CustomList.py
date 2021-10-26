@@ -18,6 +18,21 @@ class TestCustomList(unittest.TestCase):
 
     @parameterized.expand([
         [CustomList([1, 2, 3]), CustomList([1, 2, 3, 4])],
+        [CustomList([1, 2, 3, 4]), [1, 2, 3]]
+    ])
+    def test_immutability_add(self, lst1, lst2):
+        """Checks that the initial lists have not changed after addition"""
+        id1, id2 = list(map(id, [lst1, lst2]))
+        lst1_check = lst1[:]
+        lst2_check = lst2[:]
+        lst1 + lst2
+        self.assertEqual(id1, id(lst1))
+        self.assertEqual(lst1_check, lst1)
+        self.assertEqual(id2, id(lst2))
+        self.assertEqual(lst2_check, lst2)
+
+    @parameterized.expand([
+        [CustomList([1, 2, 3]), CustomList([1, 2, 3, 4])],
         [CustomList([1, 2, 3]), [1, 2, 3, 4]],
         [[1, 2, 3, 4], CustomList([1, 2, 3])]
     ])
@@ -42,6 +57,21 @@ class TestCustomList(unittest.TestCase):
     def test_sub(self, lst1, lst2):
         """Checks the correctness of substitution operation"""
         self.assertTrue(list.__eq__((lst1 - lst2), CustomList([0, 0, 0, -4])))
+
+    @parameterized.expand([
+        [CustomList([1, 2, 3]), CustomList([1, 2, 3, 4])],
+        [CustomList([1, 2, 3, 4]), [1, 2, 3]]
+    ])
+    def test_immutability_sub(self, lst1, lst2):
+        """Checks that the initial lists have not changed after substitution"""
+        id1, id2 = list(map(id, [lst1, lst2]))
+        lst1_check = lst1[:]
+        lst2_check = lst2[:]
+        lst1 - lst2
+        self.assertEqual(id1, id(lst1))
+        self.assertEqual(lst1_check, lst1)
+        self.assertEqual(id2, id(lst2))
+        self.assertEqual(lst2_check, lst2)
 
     @parameterized.expand([
         [CustomList([1, 2, 3]), CustomList([1, 2, 3, 4])],

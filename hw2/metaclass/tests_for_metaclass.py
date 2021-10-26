@@ -15,7 +15,7 @@ class TestCustomClass(unittest.TestCase):
 
     def test_valid_method(self):
         """checks availability of methods by names 'prefix+default_name'"""
-        self.assertTrue(self.inst.custom_line(), 100)
+        self.assertEqual(self.inst.custom_line(), 100)
 
     def test_invalid_class_attribute(self):
         """checks inaccessibility of class attributes by names 'default_name'"""

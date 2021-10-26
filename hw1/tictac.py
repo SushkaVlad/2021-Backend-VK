@@ -48,6 +48,7 @@ class TicTacGame:
     def update_field(self, move, token):
         """puts Tic or Tac on the game field"""
         self.fields[move - 1] = token
+        self.move_counter += 1
 
     def check_winner(self, player):
         """checks if someone has already won"""
@@ -64,39 +65,37 @@ class TicTacGame:
         self.fields = list(range(1, 10))
         self.move_counter = 0
 
-
-def game_logic():
-    """determines logic (algorithm) of the game"""
-    win = False
-    cur_move = 0
-    game.start_game()
-    while not win:
-        game.show_board()
-        if game.move_counter % 2 == 0:
-            cur_player = game.player1
-        else:
-            cur_player = game.player2
-        valid = False
-        while not valid:
-            cur_move = input(f" {cur_player['nick']}, куда поставим {cur_player['token']} ?")
-            valid = game.validate_input(cur_move)
-        game.update_field(int(cur_move), cur_player['token'])
-        game.move_counter += 1
-        if game.move_counter > 4:
-            tmp = game.check_winner(cur_player)
-            if tmp:
-                print(f"{cur_player['nick']}, игравший за {cur_player['token']} победил!!!")
+    def game_logic(self):
+        """determines logic (algorithm) of the game"""
+        win = False
+        cur_move = 0
+        self.start_game()
+        while not win:
+            self.show_board()
+            if self.move_counter % 2 == 0:
+                cur_player = self.player1
+            else:
+                cur_player = self.player2
+            valid = False
+            while not valid:
+                cur_move = input(f" {cur_player['nick']}, куда поставим {cur_player['token']} ?")
+                valid = self.validate_input(cur_move)
+            self.update_field(int(cur_move), cur_player['token'])
+            if self.move_counter > 4:
+                tmp = self.check_winner(cur_player)
+                if tmp:
+                    print(f"{cur_player['nick']}, игравший за {cur_player['token']} победил!!!")
+                    break
+            if self.move_counter == 9:
+                print("Ничья!")
                 break
-        if game.move_counter == 9:
-            print("Ничья!")
-            break
-    game.show_board()
+        self.show_board()
 
 
 if __name__ == '__main__':
     game = TicTacGame()
     while True:
-        game_logic()
+        game.game_logic()
         play_again = input("Хотите ли сыграть еще раз? (да/нет)")
         while play_again not in ("да", "нет"):
             play_again = input("Неверный ввод. Хотите ли сыграть еще раз? (да/нет)")

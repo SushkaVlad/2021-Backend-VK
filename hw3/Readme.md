@@ -41,6 +41,10 @@
 
 `http://localhost:9999/get_static/boeing2.png`
 
+`http://localhost:9999/get_static/my_example.html`
+
+`http://localhost:9999/get_static/man.gif`
+
 Проверка wsgi приложения
 
 `http://127.0.0.1:8000/test?a=1&b=2`

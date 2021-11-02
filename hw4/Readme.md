@@ -13,6 +13,8 @@
 ## Создание приложения
 `python manage.py startapp films`
 
+`python manage.py startapp users`
+
 ## Выполнение миграций
 `python manage.py migrate`
 
